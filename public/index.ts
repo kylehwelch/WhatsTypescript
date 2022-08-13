@@ -6,7 +6,6 @@ const form: HTMLFormElement = document.querySelector('#defineform');
 
 
 form.onsubmit = () => {
-  event.preventDefault();
   const formData = new FormData(form);
 
   console.log(formData);
