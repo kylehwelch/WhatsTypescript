@@ -40,16 +40,16 @@ exports.__esModule = true;
 // Import stylesheets
 // import './style.css';
 var node_fetch_1 = require("node-fetch");
+var defURL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 var form = document.querySelector('#defineform');
 form.onsubmit = function () {
     var formData = new FormData(form);
-    // console.log(formData);
     var text = formData.get('defineword');
-    // console.log(text);
-    var beef = GetWords(text);
-    console.log(beef);
+    var kyle = GetWords(text);
+    console.log(kyle);
     return false; // prevent reload
 };
+var fitru = {};
 function GetWords(text) {
     return __awaiter(this, void 0, void 0, function () {
         var response, result, error_1;
@@ -57,7 +57,7 @@ function GetWords(text) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, (0, node_fetch_1["default"])('https://api.dictionaryapi.dev/api/v2/entries/en/' + text, {
+                    return [4 /*yield*/, (0, node_fetch_1["default"])(defURL + text, {
                             method: 'GET',
                             headers: {
                                 Accept: 'application/json'
