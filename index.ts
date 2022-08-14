@@ -1,16 +1,16 @@
 // Import stylesheets
-import './style.css';
+// import './style.css';
 import fetch from 'node-fetch'
 
-const form: HTMLFormElement = document.querySelector('defineform');
+const form: HTMLFormElement = document.querySelector('#defineform');
 
 
 form.onsubmit = () => {
   const formData = new FormData(form);
 
-  console.log(formData);
   const text = formData.get('defineword') as string;
-  console.log(text);
+  const beef = GetWords(text);
+  console.log(beef);
   return false; // prevent reload
 };
 
@@ -21,9 +21,9 @@ type Word = {
 type GetWord = {
   data : Word[];};
 
-async function GetWords(){
+async function GetWords(text: string){
   try {
-    const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/hello', {
+    const response = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + text, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -47,5 +47,3 @@ async function GetWords(){
     }
   }
 }
-
-GetWords();

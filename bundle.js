@@ -40,22 +40,24 @@ exports.__esModule = true;
 // Import stylesheets
 // import './style.css';
 var node_fetch_1 = require("node-fetch");
-var form = document.querySelector('defineform');
+var form = document.querySelector('#defineform');
 form.onsubmit = function () {
     var formData = new FormData(form);
-    console.log(formData);
+    // console.log(formData);
     var text = formData.get('defineword');
-    console.log(text);
+    // console.log(text);
+    var beef = GetWords(text);
+    console.log(beef);
     return false; // prevent reload
 };
-function GetWords() {
+function GetWords(text) {
     return __awaiter(this, void 0, void 0, function () {
         var response, result, error_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 3, , 4]);
-                    return [4 /*yield*/, (0, node_fetch_1["default"])('https://api.dictionaryapi.dev/api/v2/entries/en/hello', {
+                    return [4 /*yield*/, (0, node_fetch_1["default"])('https://api.dictionaryapi.dev/api/v2/entries/en/' + text, {
                             method: 'GET',
                             headers: {
                                 Accept: 'application/json'
@@ -87,7 +89,6 @@ function GetWords() {
         });
     });
 }
-GetWords();
 
 },{"node-fetch":2}],2:[function(require,module,exports){
 (function (global){(function (){
