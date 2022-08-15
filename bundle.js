@@ -59,7 +59,7 @@ form.onsubmit = function () {
             counter++;
         });
     })["catch"](function (_) {
-        defString.innerHTML += "<p class=\"lead\">Error: Unable to find any defintions for ".concat(text, ".</p>");
+        defString.innerHTML += "<p class=\"lead\">".concat(text, " isn't a word dumdum.</p>");
     });
     return false; // prevent reload
 };

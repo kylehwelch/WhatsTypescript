@@ -29,7 +29,7 @@ form.onsubmit = () => {
             });
         })
         .catch(_ => {
-          defString!.innerHTML += `<p class="lead">Error: Unable to find any defintions for ${text}.</p>`;
+          defString!.innerHTML += `<p class="lead">${text} isn't a word dumdum.</p>`;
         });
 
 
