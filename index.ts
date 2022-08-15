@@ -58,9 +58,7 @@ async function GetWords(text: string){
 
     console.log('result is: ', JSON.stringify(result, null, 4));
 
-
     return result[0].meanings.flatMap(m => m.definitions).flatMap(d => d.definition);
-
 
   } catch (error) {
     if(error instanceof Error){
