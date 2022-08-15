@@ -1,5 +1,5 @@
 // Import stylesheets
-// import './style.css';
+// import './styles.css';
 import fetch from 'node-fetch'
 
 const defURL : string = 'https://api.dictionaryapi.dev/api/v2/entries/en/';

@@ -38,7 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 // Import stylesheets
-// import './style.css';
+// import './styles.css';
 var node_fetch_1 = require("node-fetch");
 var defURL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 var form = document.querySelector('#defineform');
