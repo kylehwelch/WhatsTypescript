@@ -42,14 +42,27 @@ exports.__esModule = true;
 var node_fetch_1 = require("node-fetch");
 var defURL = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 var form = document.querySelector('#defineform');
+var defString = document.getElementById('definitions');
+var bigHead = document.getElementById('header');
 form.onsubmit = function () {
     var formData = new FormData(form);
     var text = formData.get('defineword');
     var kyle = GetWords(text);
     console.log(kyle);
+    bigHead.innerHTML = text;
+    var counter = 1;
+    defString.innerHTML = '';
+    GetWords(text)
+        .then(function (defintions) {
+        defintions.forEach(function (d) {
+            defString.innerHTML += "<p>".concat(counter, ". ").concat(d, "</p>");
+            counter++;
+        });
+    })["catch"](function (_) {
+        defString.innerHTML += "<p class=\"lead\">Error: Unable to find any defintions for ".concat(text, ".</p>");
+    });
     return false; // prevent reload
 };
-var fitru = {};
 function GetWords(text) {
     return __awaiter(this, void 0, void 0, function () {
         var response, result, error_1;
@@ -72,7 +85,7 @@ function GetWords(text) {
                 case 2:
                     result = (_a.sent());
                     console.log('result is: ', JSON.stringify(result, null, 4));
-                    return [2 /*return*/, result];
+                    return [2 /*return*/, result[0].meanings.flatMap(function (m) { return m.definitions; }).flatMap(function (d) { return d.definition; })];
                 case 3:
                     error_1 = _a.sent();
                     if (error_1 instanceof Error) {

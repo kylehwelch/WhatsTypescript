@@ -27,3 +27,32 @@
 //         localStorage.setItem('definition', JSON.stringify(data));
 //     });
 //   }
+
+
+
+const defsdiv = document.getElementById('definitions');
+
+form.onsubmit = () => {
+  const formData = new FormData(form!);
+
+  console.log(formData);
+  const text = formData.get('defineword') as string;
+  console.log("on submit", text);
+  const element = document.getElementById('worddefined');
+
+  if (element){
+    element.textContent = text;
+  }
+
+  defsdiv!.innerHTML = '';
+    GetWords(text)
+        .then(defintions => {
+            defintions.forEach(d => {
+              defsdiv!.innerHTML += `<p>${d}</p>`;
+            });
+        })
+        .catch(_ => {
+          defsdiv!.innerHTML += `<p class="lead">Error: Unable to find any defintions for ${text}.</p>`;
+        });
+  return false; // prevent reload
+};

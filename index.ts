@@ -4,6 +4,9 @@ import fetch from 'node-fetch'
 
 const defURL : string = 'https://api.dictionaryapi.dev/api/v2/entries/en/';
 const form: HTMLFormElement = document.querySelector('#defineform');
+const defString = document.getElementById('definitions');
+const bigHead = document.getElementById('header');
+
 
 
 form.onsubmit = () => {
@@ -12,6 +15,24 @@ form.onsubmit = () => {
   const text = formData.get('defineword') as string;
   const kyle = GetWords(text);
   console.log(kyle);
+
+  bigHead!.innerHTML = text;
+
+  let counter = 1;
+
+  defString!.innerHTML = '';
+    GetWords(text)
+        .then(defintions => {
+            defintions.forEach(d => {
+              defString!.innerHTML += `<p>${counter}. ${d}</p>`;
+              counter++;
+            });
+        })
+        .catch(_ => {
+          defString!.innerHTML += `<p class="lead">Error: Unable to find any defintions for ${text}.</p>`;
+        });
+
+
   return false; // prevent reload
 };
 
@@ -21,9 +42,6 @@ type Word = {
 
 type GetWord = {
   data : Word[];};
-
-  let theWord : string = "";
-  let theDefinition : string = "";
 
 async function GetWords(text: string){
   try {
@@ -36,14 +54,14 @@ async function GetWords(text: string){
     if(!response.ok){
       throw new Error(`Error! status: ${response.status}`);
     }
-    const result = (await response.json()) as GetWord;
-
-    theWord = findWord(response, `word`)
-    theDefinition = findWord(response, `definition`)
+    const result = (await response.json());
 
     console.log('result is: ', JSON.stringify(result, null, 4));
 
-    return result;
+
+    return result[0].meanings.flatMap(m => m.definitions).flatMap(d => d.definition);
+
+
   } catch (error) {
     if(error instanceof Error){
       console.log('error message: ', error.message);
@@ -52,17 +70,5 @@ async function GetWords(text: string){
       console.log('unexpected error: ', error);
       return 'An unexpected error occurred';
     }
-  }
-}
-
-document.write(theWord);
-document.write(theDefinition);
-
-
-function findWord(file: any, key: string): string {
-  for (let i = 0; i < file.length; i++) {
-      if (file[i].hasOwnProperty(key)) {
-          return file[i][key];
-      }
   }
 }
